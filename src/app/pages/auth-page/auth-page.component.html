@@ -1,0 +1,35 @@
+<div class="auth">
+  <mat-card class="auth__card">
+    <mat-card-header>
+      <mat-card-title>SingIn</mat-card-title>
+      <mat-card-subtitle>Please enter your credential for enter in platform</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <form class="auth__form">
+        <mat-form-field class="auth__field">
+          <mat-label>Login</mat-label>
+          <input type="email" matInput [formControl]="loginFormControl" placeholder="Ex. barabashka">
+          <mat-error *ngIf="loginFormControl.hasError('minlength') && !loginFormControl.hasError('required')">
+            Login must be at least <strong>{{ loginFormControl.errors.minlength.requiredLength }} symbols</strong>
+          </mat-error>
+          <mat-error *ngIf="loginFormControl.hasError('required')">
+            Email is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="auth__field">
+          <mat-label>Password</mat-label>
+          <input type="password" matInput [formControl]="passwordFormControl">
+          <mat-error *ngIf="passwordFormControl.hasError('minlength') && !passwordFormControl.hasError('required')">
+            Password must be at least <strong>{{ passwordFormControl.errors.minlength.requiredLength }} symbols</strong>
+          </mat-error>
+          <mat-error *ngIf="passwordFormControl.hasError('required')">
+            Password is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button color="warn" mat-button [disabled]="passwordFormControl.errors !== null || loginFormControl.errors !== null" (click)="signIn()">SignIn</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

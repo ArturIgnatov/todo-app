@@ -1,0 +1,40 @@
+<div class="message mat-elevation-z4" [class.message--my]="message.role === MessageRole.USER" *ngIf="(message$ | async) as message">
+  <div class="message__header">
+    <span class="message__role">{{ (message.role === MessageRole.USER ? 'you' : message.role) | titlecase  }}</span>
+    <button
+      type="button"
+      matTooltip="Menu"
+      mat-icon-button
+      [matMenuTriggerFor]="menu"
+    >
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="onRemoveHandler(message.id)">
+        <mat-icon color="warn">delete</mat-icon>
+        Remove
+      </button>
+      <button mat-menu-item [matMenuTriggerFor]="invertebrates">
+        <mat-icon>add</mat-icon>
+        Create todo
+      </button>
+    </mat-menu>
+    <mat-menu #invertebrates="matMenu">
+      <ng-content select="[menu]"></ng-content>
+    </mat-menu>
+  </div>
+  <span class="message__content">
+    <markdown lineNumbers clipboard [clipboardButtonTemplate]="copyButton">
+      {{ message.content }}
+    </markdown>
+    <ng-template #copyButton>
+      <button class="copy-btn" (click)="onCopyHandler()">
+        <svg class="copy-btn__icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ContentCopyIcon">
+          <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z">
+          </path>
+        </svg>
+      </button>
+    </ng-template>
+  </span>
+  <span class="message__date">{{ message.created_at | date: 'MMMM dd YY, HH:mm' }}</span>
+</div>

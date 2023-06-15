@@ -1,0 +1,62 @@
+.message {
+  display: flex;
+  max-width: 80%;
+  width: auto;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 8px;
+  padding: 8px 8px 8px 20px;
+  margin-bottom: 20px;
+  &--my {
+    margin-left: auto;
+  }
+
+  &__header {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__role {
+    color: burlywood;
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+
+  &__content {
+    color: whitesmoke;
+    margin-bottom: 8px;
+  }
+
+  &__date {
+    margin-top: auto;
+    margin-left: auto;
+    color: coral;
+    font-size: 11px;
+  }
+}
+.copy-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  outline: none;
+
+  &__icon {
+    fill: white;
+    font-size: 10px;
+    width: 20px;
+    height: 20px
+  }
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+}

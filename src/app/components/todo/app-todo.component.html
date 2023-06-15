@@ -1,0 +1,19 @@
+<div class="todo" *ngIf="(todo$ | async) as todo">
+  <mat-checkbox color="primary" [checked]="(todo.completed)" (change)="setChecked(todo.id, $event.checked)" class="example-margin"/>
+  <mat-list-item  color="primary" role="listitem">
+    {{ todo.title }}
+  </mat-list-item>
+  <button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopImmediatePropagation()">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="editTodo(todo)">
+      <mat-icon>edit</mat-icon>
+      <span>Edit</span>
+    </button>
+    <button mat-menu-item (click)="removeToDo(todo)">
+      <mat-icon color="warn">delete</mat-icon>
+      <span>Remove</span>
+    </button>
+  </mat-menu>
+</div>

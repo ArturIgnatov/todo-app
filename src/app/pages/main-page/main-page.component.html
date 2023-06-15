@@ -1,0 +1,27 @@
+<div class="app">
+  <app-toolbar title="Todo app with GPT">
+    <button rightAction mat-icon-button color="primary" (click)="openModal()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </app-toolbar>
+  <mat-drawer-container class="drawer" autosize>
+    <div class="app__content">
+      <mat-spinner *ngIf="storeService.isLoading$ | async" style="width: 30px; height: 30px; align-self: center"/>
+      <mat-accordion multi>
+        <ng-container *ngFor="let category of categories$ | async; trackBy: trackBy">
+          <app-category [category]="category" appChangeDetection />
+        </ng-container>
+      </mat-accordion>
+      <div style="position: absolute; bottom: 20px; right: 20px">
+        <button mat-fab aria-label="Example icon button with a heart icon" (click)="drawer.toggle()">
+          <img alt="hello gpt" style="width: 35px; height: 35px" ngSrc="./assets/gpt-logo.png" height="5000"
+               width="5000">
+        </button>
+      </div>
+    </div>
+    <mat-drawer #drawer class="drawer__sidenav" mode="side" position="end">
+      <app-chat></app-chat>
+    </mat-drawer>
+  </mat-drawer-container>
+</div>
+

@@ -1,0 +1,7 @@
+<mat-toolbar>
+<!--  <ng-container [ngTemplateOutlet]="headerService.left_controls$ | async"></ng-container>-->
+  <ng-content select="[leftAction]"></ng-content>
+  {{ title }}
+  <span class='toolbar__spacer'></span>
+  <ng-content select="[rightAction]"></ng-content>
+</mat-toolbar>

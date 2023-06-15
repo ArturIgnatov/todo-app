@@ -1,0 +1,30 @@
+<mat-expansion-panel class="category" *ngIf="(category$ | async) as category">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopImmediatePropagation()">
+        <mat-icon>settings</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="editCategory(category.id, category.name)">
+          <mat-icon>edit</mat-icon>
+          <span>Edit name</span>
+        </button>
+        <button mat-menu-item (click)="removeCategory(category.id)">
+          <mat-icon color="warn">delete</mat-icon>
+          <span>Remove</span>
+        </button>
+      </mat-menu>
+      {{ category.name }}
+    </mat-panel-title>
+    <mat-panel-description>
+      {{ completed$ | async }} completed out of {{ category.todos.length }}
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <button mat-button style="margin-left: auto" color="primary" (click)="createTodo(category.id)">
+    <mat-icon>add</mat-icon>
+    <span>Create todo</span>
+  </button>
+  <mat-list>
+    <app-todo *ngFor="let todo of category.todos; trackBy: todoTrackBy" [todo]="todo" />
+  </mat-list>
+</mat-expansion-panel>

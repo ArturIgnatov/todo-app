@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>{{ data.title }}</h1>
+<div mat-dialog-content>
+  <p>{{ data.description }}</p>
+  <mat-form-field style="width: 100%">
+    <mat-label>{{ data.placeholder || 'Name' }}</mat-label>
+    <input matInput [(ngModel)]="data.value">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions align="end">
+  <button color="primary" mat-button [mat-dialog-close]="data.value">{{ data.buttonText }}</button>
+</div>
+

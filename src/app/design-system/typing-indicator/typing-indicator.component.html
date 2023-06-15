@@ -1,0 +1,9 @@
+<div class="indicator">
+  <div
+    class="indicator__dot"
+    *ngFor="let a of dots; let i = index"
+    [class.indicator__dot--active]="(current_index$ | async) === i"
+  >
+  </div>
+  <span class="indicator__text">GPT typing...</span>
+</div>
