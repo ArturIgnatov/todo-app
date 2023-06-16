@@ -1,4 +1,4 @@
-<div class="message mat-elevation-z4" [class.message--my]="message.role === MessageRole.USER" *ngIf="(message$ | async) as message">
+<li class="message mat-elevation-z4" [class.message--my]="message.role === MessageRole.USER" *ngIf="(message$ | async) as message">
   <div class="message__header">
     <span class="message__role">{{ (message.role === MessageRole.USER ? 'you' : message.role) | titlecase  }}</span>
     <button
@@ -37,4 +37,4 @@
     </ng-template>
   </span>
   <span class="message__date">{{ message.created_at | date: 'MMMM dd YY, HH:mm' }}</span>
-</div>
+</li>

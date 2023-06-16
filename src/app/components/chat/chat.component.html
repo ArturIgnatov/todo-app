@@ -1,4 +1,4 @@
-<div class="dialog">
+<div class="chat">
   <app-toolbar [title]="(current_dialog$ | async)?.name || 'Dialogs'">
     <button rightAction matTooltip="Create dialog" *ngIf="!(current_dialog$ | async)" mat-icon-button (click)="createDialog()">
       <mat-icon>add</mat-icon>
@@ -7,51 +7,9 @@
       <mat-icon>arrow_back</mat-icon>
     </button>
   </app-toolbar>
-  <div class="dialog__container" *ngIf="!(current_dialog$ | async)">
-    <div
-      matRipple
-      class="dialog__card mat-elevation-z4"
-      *ngFor="let dialog of chatService.dialogs$ | async; trackBy: trackByDialog"
-      (click)="openDialog(dialog)"
-    >
-      <div class="dialog__header">
-        <span class="dialog__title">{{ dialog.name }}</span>
-        <button type="button" color="warn" matTooltip="Remove dialog" mat-icon-button (click)="removeDialog($event, dialog.id)">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </div>
-      <span class="dialog__date">{{ dialog.created_at | date }}</span>
-    </div>
+
+  <chat-dialogs *ngIf="!(current_dialog$ | async)" (openDialog)="openDialog($event)"></chat-dialogs>
+  <div class="chat__messages">
+    <chat-messages *ngIf="(current_dialog$ | async)" [dialogId]="(current_dialog$ | async).id"></chat-messages>
   </div>
-  <ng-container *ngIf="(current_dialog$ | async) as dialog">
-    <div class="messages">
-      <app-message
-        *ngFor="let message of chatService.messages$ | async; trackBy: trackByMessages"
-        [message]="message"
-        (onCopy)="copyMessage()"
-        (onRemove)="removeMessage($event)"
-      >
-        <ng-container menu>
-          <button
-            mat-menu-item
-            *ngFor="let category of storeService.categories$ | async | keyvalue; trackBy: trackByCategories"
-            (click)="saveInToDo({ category_id : category.key, message_id: message.id })"
-          >
-            {{ category.value.name }}
-          </button>
-        </ng-container>
-      </app-message>
-      <app-typing-indicator *ngIf="chatService.assistant_is_typing$ | async"></app-typing-indicator>
-      <div #scrollTarget></div>
-    </div>
-    <form class="form">
-      <mat-form-field appearance="outline" class="form__input">
-        <mat-label>Message</mat-label>
-        <input type="text" [formControl]="message" matInput placeholder="How write js code...?">
-      </mat-form-field>
-      <button type="button" matTooltip="Send message" mat-icon-button (click)="sendMessage(dialog.id)">
-        <mat-icon>send</mat-icon>
-      </button>
-    </form>
-  </ng-container>
 </div>

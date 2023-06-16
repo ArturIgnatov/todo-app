@@ -1,1 +1,31 @@
-<p>messages works!</p>
+<div class="messages">
+  <ul class="messages__container">
+    <app-message
+      *ngFor="let message of chatService.messages$ | async; trackBy: trackBy"
+      [message]="message"
+      (onCopy)="copyMessage()"
+      (onRemove)="removeMessage($event)"
+    >
+      <ng-container menu>
+        <button
+          mat-menu-item
+          *ngFor="let category of storeService.categories$ | async | keyvalue; trackBy: trackByCategories"
+          (click)="saveInToDo({ category_id : category.key, message_id: message.id })"
+        >
+          {{ category.value.name }}
+        </button>
+      </ng-container>
+    </app-message>
+    <app-typing-indicator *ngIf="chatService.assistant_is_typing$ | async"></app-typing-indicator>
+    <li #scrollTarget></li>
+  </ul>
+  <form class="form">
+    <mat-form-field appearance="outline" class="form__input">
+      <mat-label>Message</mat-label>
+      <input type="text" [formControl]="message" matInput placeholder="How write js code...?">
+    </mat-form-field>
+    <button type="button" matTooltip="Send message" mat-icon-button (click)="sendMessage()">
+      <mat-icon>send</mat-icon>
+    </button>
+  </form>
+</div>

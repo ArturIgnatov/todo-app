@@ -1,1 +1,16 @@
-<p>dialogs works!</p>
+<div class="dialog__container">
+  <div
+    matRipple
+    class="dialog__card mat-elevation-z4"
+    *ngFor="let dialog of chatService.dialogs$ | async; trackBy: trackBy"
+    (click)="openDialogHandler(dialog)"
+  >
+    <div class="dialog__header">
+      <span class="dialog__title">{{ dialog.name }}</span>
+      <button type="button" color="warn" matTooltip="Remove dialog" mat-icon-button (click)="removeDialog($event, dialog.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+    <span class="dialog__date">{{ dialog.created_at | date }}</span>
+  </div>
+</div>
